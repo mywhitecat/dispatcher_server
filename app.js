@@ -10,15 +10,20 @@ const io = require('socket.io')(server);
 
 //const socketIO = require('socket.io');
 
+console.log('Start');
 
+console.log(process.env.PORT);
 
 //server.listen(PORT);
 
-server.listen();
+server.listen(process.env.PORT);
 
 app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/index.html');
+	//res.se sendFile(__dirname + '/index.html');
+	res.send('Hello World!');
   });
+
+  console.log('listen');
 
 // Отключаем вывод полного лога - пригодится в production'е
 // io.set('log level', 1);

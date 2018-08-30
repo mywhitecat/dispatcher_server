@@ -3,3 +3,8 @@ git push -u origin branch
 
 run servel locally:
 node server.js > output.log
+
+
+npm install -g heroku
+heroku --version
+heroku login
