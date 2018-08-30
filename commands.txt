@@ -1,5 +1,5 @@
 push to github:
 git push -u origin branch
 
-run servel localy:
+run servel locally:
 node server.js > output.log

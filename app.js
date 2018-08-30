@@ -1,9 +1,29 @@
-//var io = require('socket.io').listen(18080);  // local
-var io = require('socket.io').listen(); 
+const PORT = 18081
+
+const app = require('express')();
+const server = require('http').Server(app);
+const io = require('socket.io')(server);
+
+//app.use(app.static('public'));
+//app.use(app.static('files'));
+  //app.use((req, res) => res.sendFile('index.html') )
+
+//const socketIO = require('socket.io');
+
+
+
+//server.listen(PORT);
+
+server.listen();
+
+app.get('/', function (req, res) {
+	res.sendFile(__dirname + '/index.html');
+  });
+
 // Отключаем вывод полного лога - пригодится в production'е
 // io.set('log level', 1);
 // Навешиваем обработчик на подключение нового клиента
-io.sockets.on('connection', function (socket) {
+io.on('connection', function (socket) {
     console.log('client connected');
 	// Т.к. чат простой - в качестве ников пока используем первые 5 символов от ID сокета
 	var ID = (socket.id).toString().substr(0, 5);
