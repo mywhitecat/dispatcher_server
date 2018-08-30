@@ -1,4 +1,5 @@
-var io = require('socket.io').listen(18080); 
+//var io = require('socket.io').listen(18080);  // local
+var io = require('socket.io').listen(); 
 // Отключаем вывод полного лога - пригодится в production'е
 // io.set('log level', 1);
 // Навешиваем обработчик на подключение нового клиента
