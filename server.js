@@ -1,7 +1,6 @@
 function PlaneClient(planeId) 
 {
-	this.Id = planeId;
-	this.TimeStamp = Date.now();
+	this.Id = planeId;	
 	this.PlaneData = null; // serialized datas from client
 }
 
@@ -54,11 +53,9 @@ app.get('/', function (req, res) {
  // io.set('log level', 1);
 // Навешиваем обработчик на подключение нового клиента
 io.on('connection', function (socket) {
-
     
 	// Т.к. чат простой - в качестве ников пока используем первые 5 символов от ID сокета
-	var ID = (socket.id).toString().substr(0, 5);
-	var time = (new Date).toLocaleTimeString();	
+	var ID = (socket.id).toString().substr(0, 5);	
 	
 	console.log ('client connected');
 	
@@ -67,7 +64,7 @@ io.on('connection', function (socket) {
 	console.log ('Plane with ID = '+ ID+ " was added.");
 
 	// Посылаем клиенту сообщение о том, что он успешно подключился и его имя
-	socket.json.send({'event': 'connected', 'name': ID, 'time': time});    	
+	socket.json.send({'Event': 'connected', 'ID': ID});    	
 	
   
 	// Посылаем всем остальным пользователям, что подключился новый клиент и его имя
@@ -78,8 +75,7 @@ io.on('connection', function (socket) {
 	socket.on('message', function (msg) {
 
        // console.log(msg);
-
-		var time = (new Date).toLocaleTimeString();
+		
 		// Уведомляем клиента, что его сообщение успешно дошло до сервера
 		// socket.json.send({'event': 'messageSent', 'name': ID, 'text': msg, 'time': time});
 		// Callback with Planes: 
@@ -97,14 +93,14 @@ io.on('connection', function (socket) {
 			  }
 		   }
 
-		socket.json.send({'event': 'messageSent', 'name': ID, 'text': data, 'time': time});
+		socket.json.send({'Event': 'messageSent', 'ID': ID, 'Data': data});
 		// Отсылаем сообщение остальным участникам чата
 		// socket.broadcast.json.send({'event': 'messageReceived', 'name': ID, 'text': msg, 'time': time})
 	});
 	// При отключении клиента - уведомляем остальных
 	socket.on('disconnect', function() {
 		var time = (new Date).toLocaleTimeString();
-        io.sockets.json.send({'event': 'userSplit', 'name': ID, 'time': time});
+        io.sockets.json.send({'Event': 'userSplit', 'ID': ID});
 		console.log('client disconnected');
 		RemovePlane(ID);
 	});
