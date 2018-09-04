@@ -14,6 +14,7 @@ const app = require('express')();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
+var TotalTransactions = 0;
 
 //app.use(app.static('public'));
 //app.use(app.static('files'));
@@ -29,7 +30,9 @@ server.listen(PORT);
 
 app.get('/', function (req, res) {
 	//res.se sendFile(__dirname + '/index.html');
-	var str  = 'Dispatcher server: v0.3<BR/><BR/>';
+	var str  = 'Dispatcher server: v0.4<BR/><BR/>';
+
+	str = str +  'Total Transactions = ' + TotalTransactions + '<BR/><BR/>';
 
 	var len = planeClients.length;	
 	 
@@ -80,6 +83,8 @@ io.on('connection', function (socket) {
 		// socket.json.send({'event': 'messageSent', 'name': ID, 'text': msg, 'time': time});
 		// Callback with Planes: 
 		UpdatePlane(ID, msg)
+
+		TotalTransactions++;
 
 		var data = [];
 
