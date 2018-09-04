@@ -29,7 +29,7 @@ server.listen(PORT);
 
 app.get('/', function (req, res) {
 	//res.se sendFile(__dirname + '/index.html');
-	var str  = 'Dispatcher server: v0.2<BR/><BR/>';
+	var str  = 'Dispatcher server: v0.3<BR/><BR/>';
 
 	var len = planeClients.length;	
 	 
